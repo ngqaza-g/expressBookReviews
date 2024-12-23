@@ -16,9 +16,12 @@ app.use("/customer/auth/*", function auth(req,res,next){
     if(!req.session.authorization) return res.status(403).json({ message: "User not logged in"});
     
     let token = req.session.authorization['accessToken'];
-    jwt.verify(toekn, JWT_SECRET, (err, user)=>{
+    console.log(token);
+    jwt.verify(token, JWT_SECRET, (err, user)=>{
         if(err) return res.status(403).json({ messagge: "User not authenticated" });
         req.user = user;
+        console.log(user);
+
         next();
     })
 
